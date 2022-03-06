@@ -1,0 +1,41 @@
+import axios from "axios";
+axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
+
+/* get live chat channels */
+const getLiveChatChannels = async () => {
+  try {
+    const response = await axios.get(`/chat/get-channels`);
+    return Promise.resolve(response);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+/* send message on live chat */
+const sendMessage = async (channel = '681af34554de7baa1b403a631b0926fb', message) => {
+  try {
+    const response = await axios.post(
+      `/chat/add-message/${channel}/message/${message}`
+    );
+    return Promise.resolve(response);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export { getLiveChatChannels, sendMessage };
+
+
+
+    
+
+
+    /* working pusher implementation -> switch if necessary due to performance issues*/
+    // const pusher = new Pusher('356cc28c7b5cd8012ac2', {
+    //   cluster: 'eu'
+    // });
+
+    // const channel = pusher.subscribe('my-channel');
+    // channel.bind('my-channel', function(data) {
+    //   console.log(JSON.stringify(data));
+    // });
