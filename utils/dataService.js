@@ -12,7 +12,7 @@ const getLiveChatChannels = async () => {
 };
 
 /* send message on live chat */
-const sendMessage = async (channel = '681af34554de7baa1b403a631b0926fb', message) => {
+const sendMessage = async (channel, message) => {
   try {
     const response = await axios.post(
       `/chat/add-message/${channel}/message/${message}`
@@ -23,19 +23,24 @@ const sendMessage = async (channel = '681af34554de7baa1b403a631b0926fb', message
   }
 };
 
-export { getLiveChatChannels, sendMessage };
+/* update message status */
+const updateMessageStatus = async (channel) => {
+  try {
+    const response = await axios.post(`/chat/update-messages/${channel.id}`);
+    return Promise.resolve(response);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
 
+export { getLiveChatChannels, sendMessage, updateMessageStatus };
 
+/* working pusher implementation -> switch if necessary due to performance issues*/
+// const pusher = new Pusher('356cc28c7b5cd8012ac2', {
+//   cluster: 'eu'
+// });
 
-    
-
-
-    /* working pusher implementation -> switch if necessary due to performance issues*/
-    // const pusher = new Pusher('356cc28c7b5cd8012ac2', {
-    //   cluster: 'eu'
-    // });
-
-    // const channel = pusher.subscribe('my-channel');
-    // channel.bind('my-channel', function(data) {
-    //   console.log(JSON.stringify(data));
-    // });
+// const channel = pusher.subscribe('my-channel');
+// channel.bind('my-channel', function(data) {
+//   console.log(JSON.stringify(data));
+// });
