@@ -29,19 +29,28 @@ const Layout = ({ children }) => {
       encrypted: true,
       authEndpoint: "localhost:3000/api/broadcasting/auth",
     });
-    
-    echo.channel(`admin-channel`).listenToAll((event, data) => {
-        dispatch({
-          type: ACTION_TYPES.SET_NEW_CREATED_CHANNEL,
-          payload: data.channel,
-        });
-    });
 
+    echo.channel(`admin-channel`).listenToAll((event, data) => {
+      
+      /* add new channel to the ones we currently have stored */
+      dispatch({
+        type: ACTION_TYPES.SET_NEW_CREATED_CHANNEL,
+        payload: data.channel,
+      });
+
+      /* listen for this new channel */
+      echo.channel(`${data.channel.name}`).listenToAll((event, data) => {
+        /* add to context */
+        dispatch({
+          type: ACTION_TYPES.ADD_MESSAGE_TO_MESSAGE_BAG,
+          payload: data,
+        });
+      });
+    });
 
     /* 3. Listen on all open channels */
     for (const channel of data) {
       echo.channel(`${channel.name}`).listenToAll((event, data) => {
-        
         /* add to context */
         dispatch({
           type: ACTION_TYPES.ADD_MESSAGE_TO_MESSAGE_BAG,

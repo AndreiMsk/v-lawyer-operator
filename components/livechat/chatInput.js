@@ -9,11 +9,6 @@ const ChatInput = ({channel}) => {
 
   /* bind textarea value to local state */
   const handleOnChange = (e) => setMessage(e.target.value);
-
-  /* get access to context */
-  const { dispatch } = useContext(StoreContext);
-
-  /* extract messages from context */
  
   const handleSendMessage = async (event) => {
     event.preventDefault();
@@ -21,8 +16,13 @@ const ChatInput = ({channel}) => {
     /* safeguard block if no channel is selected or message is empty */
     if(!channel && !message ) return;
 
+    const data = new FormData();
+    data.append('message', message);
+    data.append('channel', channel.name);
+    data.append('sender', 'admin');
+
     /* send message to API to retrieve the channel name to listen for */
-    await sendMessage(channel.name, message);
+    await sendMessage(data);
 
     /* reset textarea message */
     setMessage("");

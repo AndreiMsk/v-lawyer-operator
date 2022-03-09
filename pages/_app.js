@@ -6,7 +6,7 @@ export const StoreContext = createContext();
 
 /* instantiate context provider */
 const StoreProvider = ({ children }) => {
-  
+
   /* instantiate initial state */
   const initialState = {
     channel: null, // current channel where transimition is being made
@@ -45,6 +45,7 @@ const storeReducer = (state, action) => {
       return { ...state, channels: [...state.channels, action.payload] };
 
     case ACTION_TYPES.ADD_MESSAGE_TO_MESSAGE_BAG:
+      console.log('aici');
       const index = state.channels.findIndex(
         (channel) => channel.name === state.channel.name
       );

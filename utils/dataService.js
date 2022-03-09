@@ -12,11 +12,9 @@ const getLiveChatChannels = async () => {
 };
 
 /* send message on live chat */
-const sendMessage = async (channel, message) => {
+const sendMessage = async (data) => {
   try {
-    const response = await axios.post(
-      `/chat/add-message/${channel}/message/${message}`
-    );
+    const response = await axios.post("/chat/add-message", data);
     return Promise.resolve(response);
   } catch (error) {
     return Promise.reject(error);
