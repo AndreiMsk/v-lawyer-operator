@@ -1,5 +1,5 @@
 import Layout from "layouts/admin";
-import LiveChatContainer from "components/livechat/livechatContainer";
+import LiveChatContainer from "components/livechat/LivechatContainer";
 
 const Chat = () => {
   return <LiveChatContainer />;
