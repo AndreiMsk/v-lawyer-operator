@@ -1,10 +1,10 @@
 import { ChatIcon } from "@heroicons/react/solid";
-import { ACTION_TYPES } from "pages/_app";
 import UserIcon from "components/icons/User";
 import { updateMessageStatus } from "utils/dataService";
+import { ACTION_TYPES } from "pages/_app";
 
-const ChatChannels = ({ channels, channel, dispatch }) => {
-    
+const ChatChannels = ({ dispatch, channel, channels }) => {
+  
   /* blend css classes */
   const classNames = (...classes) => {
     return classes.filter(Boolean).join(" ");
@@ -39,11 +39,15 @@ const ChatChannels = ({ channels, channel, dispatch }) => {
               <span className="inline-block rounded-full  bg-gray-200 mr-4 relative h-10 w-10 hover:bg-gray-400">
                 <UserIcon className="h-6 w-10 text-gray-400 mt-1 hover:text-white" />
                 {channel?.name !== channelObject.name &&
-                channelObject.messages.find(
-                  (message) => message.status === "not_read" && message.sender !== 'admin'
-                ) && (
-                <span className="inline-block absolute bottom-6 left-7"><ChatIcon className="h-6 text-red-500"/></span>
-                )}
+                  channelObject.messages.find(
+                    (message) =>
+                      message.status === "not_read" &&
+                      message.sender !== "admin"
+                  ) && (
+                    <span className="inline-block absolute bottom-6 left-7">
+                      <ChatIcon className="h-6 text-red-500" />
+                    </span>
+                  )}
               </span>
               <span className="inline-block">#{channelObject.name}</span>
             </li>

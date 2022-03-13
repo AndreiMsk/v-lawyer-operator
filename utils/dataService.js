@@ -31,7 +31,17 @@ const updateMessageStatus = async (channel) => {
   }
 };
 
-export { getLiveChatChannels, sendMessage, updateMessageStatus };
+/* close chat - update to closed status */
+const closeChat = async (channel) => {
+  try {
+    const response = await axios.post(`/chat/close-chat/${channel.id}`);
+    return Promise.resolve(response);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export { getLiveChatChannels, sendMessage, updateMessageStatus, closeChat };
 
 /* working pusher implementation -> switch if necessary due to performance issues*/
 // const pusher = new Pusher('356cc28c7b5cd8012ac2', {

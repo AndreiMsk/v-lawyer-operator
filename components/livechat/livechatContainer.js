@@ -1,14 +1,15 @@
-import { useContext } from "react";
-import { StoreContext } from "pages/_app";
 import ChannelInfo from "components/livechat/ChannelInfo";
 import ChatChannels from "components/livechat/ChatChannels";
 import ChatMessageBox from "components/livechat/ChatMessageBox";
 import ChatInput from "components/livechat/ChatInput";
+import { StoreContext } from "pages/_app";
+import { useContext } from "react"
+
 
 const LiveChatContainer = () => {
 
-/* import from Store CONTEXT */
-const { dispatch,  state: { channel, channels, user } } = useContext(StoreContext);
+  /* import from Store CONTEXT */
+  const { dispatch, state: { channel, user, channels } } = useContext(StoreContext);
 
   return (
     <div className="flex h-screen bg-white">
@@ -18,11 +19,11 @@ const { dispatch,  state: { channel, channels, user } } = useContext(StoreContex
 
         {/* channel info: currently selected channel, user type etc */}
         <div className="flex flex-col justify-center items-center h-2/6 px-3 pb-1 pt-3">
-            <ChannelInfo channel={channel} user={user} />
+          <ChannelInfo channel={channel} user={user} />
         </div>
         {/* a list of active channels */}
         <div className="flex flex-col justify-center items-center h-4/6 px-3 pt-1 pb-3">
-            <ChatChannels channels={channels} channel={channel} dispatch={dispatch} /> 
+          <ChatChannels dispatch={dispatch} channel={channel} channels={channels} />
         </div>
       </div>
 
@@ -31,12 +32,12 @@ const { dispatch,  state: { channel, channels, user } } = useContext(StoreContex
 
         {/* chat message box renderer */}
         <div className="flex flex-col justify-center items-center h-4/6 pr-3 pb-1 pt-2">
-          <ChatMessageBox channel={channel}/>
+          <ChatMessageBox channel={channel} />
         </div>
 
-         {/* <ChatInput /> */}
-         <div className="flex flex-col justify-center items-center h-2/6 pr-3 pb-2 pt-2">
-          <ChatInput channel={channel} />
+        {/* <ChatInput /> */}
+        <div className="flex flex-col justify-center items-center h-2/6 pr-3 pb-2 pt-2">
+          <ChatInput dispatch={dispatch} channel={channel} />
         </div>
 
       </div>
