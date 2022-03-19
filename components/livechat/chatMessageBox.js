@@ -1,4 +1,4 @@
-import { XCircleIcon } from "@heroicons/react/solid";
+import { XCircleIcon, LockClosedIcon } from "@heroicons/react/solid";
 import Message from "./Message";
 import { closeChat } from "services/apiService";
 import { ACTION_TYPES } from "pages/_app";
@@ -44,14 +44,28 @@ const ChatMessageBox = ({ channel, dispatch }) => {
         />
       }
 
-      <div onClick={handleCloseChatConfirmation} className={`text-xs absolute right-0 top-0 bg-gray-400 px-2 py-1 rounded-sm cursor-pointer flex justify-center items-center text-white 
-      ${!channel ? 'cursor-not-allowed' : 'hover:bg-red-500'}`}>
-        Close chat
-        <XCircleIcon className="text-white h-4 ml-1" />
-      </div>
-      <ul className="overflow-auto mt-6 px-4">
-        {channel?.messages.map((channelMessage, key) => <Message message={channelMessage} key={key} />)}
-      </ul>
+      {
+        channel && <div onClick={handleCloseChatConfirmation} className={`text-xs absolute right-0 top-0 bg-gray-400 px-2 py-1 rounded-sm cursor-pointer flex justify-center items-center text-white hover:bg-red-500`}>
+          Close chat
+          <XCircleIcon className="text-white h-4 ml-1" />
+        </div>
+      }
+
+      {
+        channel && <ul className="overflow-auto mt-6 px-4">
+          {channel.messages.map((channelMessage, key) => <Message message={channelMessage} key={key} />)}
+        </ul>
+      }
+
+      {
+        !channel &&
+        <div className="h-full flex items-center justify-center text-gray-400 text-sm cursor-not-allowed flex-col">
+          {/* <ExclamationIcon className="h-20 w-20 text-gray-200"/> */}
+          <LockClosedIcon className="h-16 w-16 text-gray-200" />
+
+          <p>No chat selected </p>
+        </div>
+      }
     </div>
   );
 };

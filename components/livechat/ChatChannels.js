@@ -25,7 +25,7 @@ const ChatChannels = ({ dispatch, channel, channels }) => {
 
       <div className="bg-gray-600 text-white w-full h-16 flex justify-start items-center text-sm p-3 rounded-t-md drop-shaddow-xl">
         <ChatAlt2Icon className="text-white h-12"/>
-        <p className="ml-2"> Live chat</p>
+        <p className="ml-2"> Live conversations</p>
       </div>
 
       <ul className="py-2 overflow-y-scroll p-3">

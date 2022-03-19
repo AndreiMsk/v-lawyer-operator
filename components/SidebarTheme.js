@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import {
   CogIcon,
@@ -14,33 +14,49 @@ import {
   CalendarIcon,
   LogoutIcon,
 } from '@heroicons/react/solid'
-import UserIcon from './icons/User'
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { useAuth } from 'hooks/auth'
+
 
 const navigation = [
   { name: "Dashboard", href: "/", icon: HomeIcon, current: true },
   { name: "Calendar", href: "/calendar", icon: CalendarIcon, current: false },
   {
     name: "Video Lobby",
-    href: "/lobby",
+    href: "/video-lobby",
     icon: VideoCameraIcon,
     current: false,
   },
-  { name: "LiveChat", href: "/chat", icon: ChatAlt2Icon, current: false },
+  { name: "LiveChat", href: "/live-chat", icon: ChatAlt2Icon, current: false },
   { name: "Team", href: "/team", icon: UsersIcon, current: false },
   { name: "Reports", href: "/reports", icon: ChartPieIcon, current: false },
-  { name: 'Settings', href: '#', icon: CogIcon, current: false },
+  { name: 'Settings', href: '/settings', icon: CogIcon, current: false },
 ]
+
 const userNavigation = [
-  { name: 'Your profile', href: '#' },
-  { name: 'Sign out', href: '#' },
+  { name: 'Your profile', href: '/profile' }
 ]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example({ children }) {
+const SidebarThemeLayout = ({ children }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [activePage, setActivePage] = useState('Dashboard')
+
+  const router = useRouter();
+
+  /* logout method from auth hook */
+  const { logout } = useAuth()
+
+  useEffect(() => {
+    console.log();
+    if (router) {
+      setActivePage(router.pathname)
+    }
+  }, [router]);
 
   return (
     <>
@@ -57,27 +73,27 @@ export default function Example({ children }) {
             </div>
             <div className="flex-1 mt-6 w-full px-2 space-y-1">
               {navigation.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className={classNames(
-                    item.current ? 'bg-gray-800 text-white' : 'text-gray-100 hover:bg-gray-800 hover:text-white',
-                    'group w-full p-2 rounded-md flex flex-col items-center text-xs font-medium'
-                  )}
-                  aria-current={item.current ? 'page' : undefined}
-                >
-                  <item.icon
+                <Link href={item.href} key={item.name}>
+                  <a
                     className={classNames(
-                      item.current ? 'text-white' : 'text-gray-300 group-hover:text-white',
-                      'h-6 w-6'
+                      activePage === item.href ? 'bg-gray-800 text-white' : 'text-gray-100 hover:bg-gray-800 hover:text-white',
+                      'group w-full p-2 rounded-md flex flex-col items-center text-xs font-medium'
                     )}
-                    aria-hidden="true"
-                  />
-                  <span className="mt-1">{item.name}</span>
-                </a>
+                    aria-current={activePage === item.href ? 'page' : undefined}
+                  >
+                    <item.icon
+                      className={classNames(
+                        activePage === item.href ? 'text-white' : 'text-gray-300 group-hover:text-white',
+                        'h-6 w-6'
+                      )}
+                      aria-hidden="true"
+                    />
+                    <span className="mt-1">{item.name}</span>
+                  </a>
+                </Link>
               ))}
-              <div className='bg-yellow-500 text-white w-full text-xs absolute bottom-0 left-0 flex items-center justify-center'>
-                <p className='text-white text-xs text-center px-2 py-4 cursor-pointer'>Sign out</p>
+              <div className='bg-yellow-500 text-white w-full text-xs absolute bottom-0 left-0 flex items-center justify-center' onClick={logout}>
+                <p className='text-white text-xs text-center px-2 py-5 cursor-pointer'>Sign out</p>
                 <LogoutIcon className='text-white group-hover:text-white h-5 w-5' />
               </div>
             </div>
@@ -128,7 +144,7 @@ export default function Example({ children }) {
                     </button>
                   </div>
                 </Transition.Child>
-                <div className="flex-shrink-0 px-4 flex items-center">
+                <div className="flex-shrink-0 px-4 flex items-center border">
                   <img
                     className="h-8 w-auto"
                     src="https://tailwindui.com/img/logos/workflow-mark.svg?color=white"
@@ -143,16 +159,16 @@ export default function Example({ children }) {
                           key={item.name}
                           href={item.href}
                           className={classNames(
-                            item.current
+                            activePage == item.href
                               ? 'bg-gray-800 text-white'
                               : 'text-gray-100 hover:bg-gray-800 hover:text-white',
                             'group py-2 px-3 rounded-md flex items-center text-sm font-medium'
                           )}
-                          aria-current={item.current ? 'page' : undefined}
+                          aria-current={activePage ? 'page' : undefined}
                         >
                           <item.icon
                             className={classNames(
-                              item.current ? 'text-white' : 'text-gray-300 group-hover:text-white',
+                              activePage === item.href ? 'text-white' : 'text-gray-300 group-hover:text-white',
                               'mr-3 h-6 w-6'
                             )}
                             aria-hidden="true"
@@ -212,18 +228,26 @@ export default function Example({ children }) {
                         {userNavigation.map((item) => (
                           <Menu.Item key={item.name}>
                             {({ active }) => (
-                              <a
-                                href={item.href}
-                                className={classNames(
-                                  active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700'
-                                )}
-                              >
-                                {item.name}
-                              </a>
+                              <Link href={item.href} key={item.name}>
+                                <a
+                                  className={classNames(
+                                    active ? 'bg-gray-100' : '',
+                                    'block px-4 py-2 text-sm text-gray-700'
+                                  )}
+                                >
+                                  {item.name}
+                                </a>
+                              </Link>
                             )}
                           </Menu.Item>
                         ))}
+                        <Menu.Item>
+                          <Link href="">
+                            <a className={'block px-4 py-2 text-sm text-gray-700'} onClick={logout}>
+                              Sign out
+                            </a>
+                          </Link>
+                        </Menu.Item>
                       </Menu.Items>
                     </Transition>
                   </Menu>
@@ -242,3 +266,6 @@ export default function Example({ children }) {
     </>
   )
 }
+
+
+export default SidebarThemeLayout;

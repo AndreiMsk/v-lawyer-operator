@@ -37,7 +37,7 @@ const ChatInput = ({ channel }) => {
           id="description"
           className={`bg-transparent block w-full h-full border-0 p-3 resize-none placeholder-gray-500 sm:text-sm rounded-l-md focus:outline-none focus:ring-none focus:ring-gray-50 border border-gray-200,
     ${!channel
-              ? "bg-gray-200 opacity-75 cursor-not-allowed focus:outline-none focus:ring-none focus:ring-gray-50"
+              ? "bg-gray-200 opacity-50 cursor-not-allowed focus:outline-none focus:ring-none focus:ring-gray-50"
               : ""
             } `}
           placeholder="Type your reply ..."

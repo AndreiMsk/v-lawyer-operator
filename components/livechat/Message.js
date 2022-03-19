@@ -12,11 +12,7 @@ const Message = ({ message }) => {
     >
       {["guest", "user"].includes(message.sender) && (
         <span className="inline-block">
-          <img
-            className="inline-block h-8 w-8 rounded-full ring-2 ring-gray-200 mr-2 mb-1"
-            src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-            alt=""
-          />
+          <UserCircleIcon className="h-12 text-gray-200" />
         </span>
       )}
       <span
@@ -30,8 +26,14 @@ const Message = ({ message }) => {
         <p className="text-xxs pt-1 text-right opacity-50">{dayjs(message.created_at).fromNow()}</p>
       </span>
       {["admin"].includes(message.sender) && (
-        <span className="inline-block">
-          <UserCircleIcon className="h-10 text-gray-200" />
+        <span className="inline-block h-10 w-10 rounded-full ml-1 mb-2">
+          <span className="block h-10 w-10 text-gray-200">
+            <img
+              className="block h-full w-full rounded-full  ring-2 ring-gray-200 ml-1"
+              src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              alt=""
+            />
+          </span>
         </span>
       )}
     </li>

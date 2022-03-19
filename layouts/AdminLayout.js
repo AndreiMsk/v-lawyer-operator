@@ -1,4 +1,4 @@
-import SidebarType from "components/sidebar";
+import SidebarTheme from "components/SidebarTheme";
 import { getLiveChatChannels } from "services/apiService";
 import React, { useEffect, useContext } from "react";
 import Echo from "laravel-echo";
@@ -52,7 +52,7 @@ const Layout = ({ children }) => {
   }, [dispatch]);
 
   /* render default layout */
-  return <SidebarType>{children}</SidebarType>;
+  return <SidebarTheme>{children}</SidebarTheme>;
 };
 
 export default Layout;
