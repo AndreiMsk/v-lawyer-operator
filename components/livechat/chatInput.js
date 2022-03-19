@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { sendMessage, closeChat } from "utils/dataService";
+import { sendMessage, closeChat } from "services/apiService";
 import { TrashIcon } from "@heroicons/react/solid";
 import { ACTION_TYPES } from "pages/_app";
 

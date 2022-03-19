@@ -1,4 +1,4 @@
-import Layout from "layouts/admin";
+import Layout from "layouts/AdminLayout";
 import LiveChatContainer from "components/livechat/LivechatContainer";
 
 const Chat = () => {

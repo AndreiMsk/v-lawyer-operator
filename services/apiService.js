@@ -1,10 +1,9 @@
-import axios from "axios";
-axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
+import axios from "libraries/axios";
 
 /* get live chat channels */
 const getLiveChatChannels = async () => {
   try {
-    const response = await axios.get(`/chat/get-channels`);
+    const response = await axios.get(`api/chat/get-channels`);
     return Promise.resolve(response);
   } catch (error) {
     return Promise.reject(error);
@@ -14,7 +13,7 @@ const getLiveChatChannels = async () => {
 /* send message on live chat */
 const sendMessage = async (data) => {
   try {
-    const response = await axios.post("/chat/add-message", data);
+    const response = await axios.post("api/chat/add-message", data);
     return Promise.resolve(response);
   } catch (error) {
     return Promise.reject(error);
@@ -24,7 +23,7 @@ const sendMessage = async (data) => {
 /* update message status */
 const updateMessageStatus = async (channel) => {
   try {
-    const response = await axios.post(`/chat/update-messages/${channel.id}`);
+    const response = await axios.post(`api/chat/update-messages/${channel.id}`);
     return Promise.resolve(response);
   } catch (error) {
     return Promise.reject(error);
@@ -34,7 +33,7 @@ const updateMessageStatus = async (channel) => {
 /* close chat - update to closed status */
 const closeChat = async (channel) => {
   try {
-    const response = await axios.post(`/chat/close-chat/${channel.id}`);
+    const response = await axios.post(`api/chat/close-chat/${channel.id}`);
     return Promise.resolve(response);
   } catch (error) {
     return Promise.reject(error);

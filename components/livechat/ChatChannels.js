@@ -1,6 +1,6 @@
 import { ChatIcon } from "@heroicons/react/solid";
 import UserIcon from "components/icons/User";
-import { updateMessageStatus } from "utils/dataService";
+import { updateMessageStatus } from "services/apiService";
 import { ACTION_TYPES } from "pages/_app";
 
 const ChatChannels = ({ dispatch, channel, channels }) => {

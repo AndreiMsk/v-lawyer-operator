@@ -1,4 +1,4 @@
-import Layout from "layouts/admin";
+import Layout from "layouts/AdminLayout";
 
 const Calendar = () => {
   return (

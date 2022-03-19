@@ -11,6 +11,8 @@ import {
   CalendarIcon,
 } from "@heroicons/react/outline";
 import Link from "next/link";
+import { useAuth } from "hooks/auth";
+import { LogoutIcon } from "@heroicons/react/solid";
 
 const navigation = [
   { name: "Dashboard", href: "/", icon: HomeIcon, current: true },
@@ -32,6 +34,7 @@ function classNames(...classes) {
 
 const Sidebar = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { logout, user } = useAuth({ middleware: 'auth' })
 
   return (
     <div>
@@ -127,11 +130,14 @@ const Sidebar = ({ children }) => {
                     </div>
                     <div className="ml-3">
                       <p className="text-base font-medium text-white">
-                        Andrei Mosica
+                        {user?.name}
                       </p>
                       <p className="text-sm font-medium text-gray-200 group-hover:text-white">
                         View profile
                       </p>
+                      <span>
+                        <LogoutIcon className="h-4 text-white"/>
+                      </span>
                     </div>
                   </div>
                 </a>
@@ -194,11 +200,15 @@ const Sidebar = ({ children }) => {
                   </div>
                   <div className="ml-3">
                     <p className="text-sm font-medium text-white">
-                      Andrei Mosica
+                      {user?.name}
                     </p>
-                    <p className="text-xs font-normal text-gray-200 group-hover:text-white">
-                      View profile
-                    </p>
+                    <div className="flex items-center">
+                    <span className="text-xs font-normal text-gray-200 group-hover:text-white inline-block">
+                      View profile 
+                    </span>
+                    <span className="inline-block border-r border-white mx-1 h-3"></span>
+                    <span onClick={logout} className="text-xs font-normal text-gray-200 group-hover:text-white inline-block">Logout</span>
+                    </div>
                   </div>
                 </div>
               </a>
