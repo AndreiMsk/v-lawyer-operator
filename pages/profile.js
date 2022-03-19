@@ -7,7 +7,9 @@ const Profile = () => {
   const { logout, user } = useAuth({ middleware: 'auth' })
 
   return (
-    <div className="flex justify-center items-center flex-col w-full p-12">
+
+      
+    <div className="flex justify-center items-center flex-col w-full p-8">
 
       <span className="h-36 w-36 rounded-md overflow-hidden bg-gray-100">
         <svg className="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
@@ -15,9 +17,13 @@ const Profile = () => {
         </svg>
       </span>
 
+      <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4 mt-8">
       <PersonalInformation />
+      <PersonalInformation />
+      </div>
 
     </div>
+
   );
 };
 

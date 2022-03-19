@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { sendMessage, closeChat } from "services/apiService";
-import { TrashIcon } from "@heroicons/react/solid";
-import { ACTION_TYPES } from "pages/_app";
+import { ReplyIcon } from "@heroicons/react/solid";
+// import { ACTION_TYPES } from "pages/_app";
 
-const ChatInput = ({ dispatch, channel }) => {
+const ChatInput = ({ channel }) => {
   /* initiate state */
   let [message, setMessage] = useState("");
 
@@ -28,57 +28,37 @@ const ChatInput = ({ dispatch, channel }) => {
     setMessage("");
   };
 
-  const handleCloseChat = async (event) => {
-    event.preventDefault();
-
-    if (!channel) return;
-
-    dispatch({
-      type: ACTION_TYPES.REMOVE_CHANNEL,
-      payload: channel,
-    });
-
-    closeChat(channel);
-  };
-
   return (
-    <form
-      action="#"
-      className="flex flex-col w-full h-full rounded-md drop-shadow-2xl bg-white rounded-md mb-1"
-    >
-      <div className="w-full h-2/3 rounded-md">
+    <div className="w-full h-full bg-blue-300 flex rounded-md">
+      <div className="flex flex-grow bg-gray-200 rounded-l-md">
         <textarea
           rows={2}
           name="description"
           id="description"
-          className={`block w-full h-full border-0 p-3 resize-none placeholder-gray-500 sm:text-sm rounded-md focus:outline-none focus:ring-none focus:ring-gray-50,
-          ${!channel
-              ? "bg-gray-100 opacity-75 cursor-not-allowed focus:outline-none focus:ring-none focus:ring-gray-50"
+          className={`bg-transparent block w-full h-full border-0 p-3 resize-none placeholder-gray-500 sm:text-sm rounded-l-md focus:outline-none focus:ring-none focus:ring-gray-50 border border-gray-200,
+    ${!channel
+              ? "bg-gray-200 opacity-75 cursor-not-allowed focus:outline-none focus:ring-none focus:ring-gray-50"
               : ""
             } `}
-          placeholder="Send your reply ..."
+          placeholder="Type your reply ..."
           value={message}
           onChange={handleOnChange}
           readOnly={!channel ? "readonly" : ""}
         />
       </div>
-      <div className="flex justify-between items-center px-4">
-        <span
-          className={`h-8 inline-block cursor-pointer ${channel ? "cursor-pointer" : "opacity-50 cursor-not-allowed"}`}
-          onClick={handleCloseChat}
-        >
-          <TrashIcon className="h-full text-red-500" />
-        </span>
-        <button
-          onClick={handleSendMessage}
-          className={`mt-2 w-32 inline items-center px-4 py-3 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 ${channel && channel.id
-            ? "cursor-pointer" : "opacity-50 cursor-not-allowed"
-            }`}
-        >
-          Send message
-        </button>
-      </div>
-    </form>
+
+      <button
+        onClick={handleSendMessage}
+        className={`bg-yellow-400 text-white w-40 flex justify-center items-center rounded-r-md flex-col ${channel && channel.id
+          ? "cursor-pointer" : "cursor-not-allowed"
+          }`}
+      >
+        <ReplyIcon className="text-white h-8" />
+        <p className="text-xs">Send message</p>
+      </button>
+
+
+    </div>
   );
 };
 

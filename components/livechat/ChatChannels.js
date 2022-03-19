@@ -1,10 +1,10 @@
-import { ChatIcon } from "@heroicons/react/solid";
+import { ChatAlt2Icon, ChatIcon } from "@heroicons/react/solid";
 import UserIcon from "components/icons/User";
 import { updateMessageStatus } from "services/apiService";
 import { ACTION_TYPES } from "pages/_app";
 
 const ChatChannels = ({ dispatch, channel, channels }) => {
-  
+
   /* blend css classes */
   const classNames = (...classes) => {
     return classes.filter(Boolean).join(" ");
@@ -21,8 +21,14 @@ const ChatChannels = ({ dispatch, channel, channels }) => {
   };
 
   return (
-    <div className="bg-white w-full h-full rounded-md drop-shadow-2xl flex flex-col justify-start p-3">
-      <ul className="py-2 overflow-y-scroll">
+    <div className="bg-white w-full h-full rounded-md drop-shadow-2xl flex flex-col justify-start">
+
+      <div className="bg-gray-600 text-white w-full h-16 flex justify-start items-center text-sm p-3 rounded-t-md drop-shaddow-xl">
+        <ChatAlt2Icon className="text-white h-12"/>
+        <p className="ml-2"> Live chat</p>
+      </div>
+
+      <ul className="py-2 overflow-y-scroll p-3">
         {channels &&
           channels.length > 0 &&
           channels.map((channelObject, key) => (

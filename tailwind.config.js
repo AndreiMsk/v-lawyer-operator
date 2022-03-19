@@ -4,7 +4,11 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontSize: {
+        xxs: '.65rem'
+      }
+    },
   },
   plugins: [
     "@tailwindcss/aspect-ratio",

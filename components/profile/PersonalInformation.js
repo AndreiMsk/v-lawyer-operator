@@ -1,11 +1,15 @@
 const PersonalInformation = ({ user }) => {
     return (
         <div className="pt-8 space-y-6 sm:pt-10 sm:space-y-5 w-full">
-            <div>
+
+            <div className="px-3 border-b border-gray-200 pb-1">
                 <h3 className="text-lg leading-6 font-medium text-gray-900">Personal Information</h3>
-                <p className="mt-1 max-w-2xl text-sm text-gray-500">Use a permanent address where you can receive mail.</p>
+                <p className="mt-1 max-w-2xl text-xs text-gray-500">Your personal information are listedbelow</p>
             </div>
-            <div className="space-y-6 sm:space-y-5">
+
+
+
+            {/* <div className="space-y-6 sm:space-y-5">
                 <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
                     <label htmlFor="first-name" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
                         First name
@@ -129,7 +133,7 @@ const PersonalInformation = ({ user }) => {
                         />
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }
