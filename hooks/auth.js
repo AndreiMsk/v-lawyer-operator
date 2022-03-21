@@ -12,7 +12,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
             .then(res => res.data)
             .catch(error => {
                 if (error.response.status === 401) router.push('/login')
-                
+
                 if (error.response.status !== 409) throw error
 
                 router.push('/verify-email')
@@ -42,19 +42,19 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
         setErrors([])
         setStatus(null)
 
-            try {
-                axios
+        try {
+            axios
                 .post('/login', props)
                 .then(() => revalidate())
                 .catch(error => {
                     console.log(error);
                     if (error.response.status !== 422) throw error
-    
+
                     setErrors(Object.values(error.response.data.errors).flat())
                 })
-            } catch (error) {
-                console.log(error)
-            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const forgotPassword = async ({ setErrors, setStatus, email }) => {
@@ -96,7 +96,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     }
 
     const logout = async () => {
-        if (! error) {
+        if (!error) {
             await axios.post('/logout')
 
             revalidate()
@@ -106,6 +106,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     }
 
     useEffect(() => {
+        console.log('12313');
         if (middleware === 'guest' && redirectIfAuthenticated && user) router.push(redirectIfAuthenticated)
         if (middleware === 'auth' && error) logout()
     }, [user, error])

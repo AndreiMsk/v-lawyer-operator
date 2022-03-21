@@ -8,7 +8,7 @@ import { useContext } from "react"
 const LiveChatContainer = () => {
 
   /* import from Store CONTEXT */
-  const { dispatch, state: { channel, user, channels } } = useContext(StoreContext);
+  const { dispatch, state: { channel, channels } } = useContext(StoreContext);
 
   return (
     <div className="flex h-full bg-white p-3">

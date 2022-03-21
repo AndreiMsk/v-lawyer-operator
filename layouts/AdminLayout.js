@@ -19,7 +19,6 @@ const Layout = ({ children }) => {
       const { data: { data } } = response;
       dispatch({ type: ACTION_TYPES.SET_CHANNELS, payload: data });
 
-
       const echo = new Echo({
         broadcaster: "pusher",
         key: "356cc28c7b5cd8012ac2",
@@ -28,8 +27,7 @@ const Layout = ({ children }) => {
         authEndpoint: "localhost:3000/api/broadcasting/auth",
       });
 
-      echo
-        .channel("admin-channel")
+      echo.channel("admin-channel")
         .listen(".message-sent", (e) => {
           dispatch({
             type: ACTION_TYPES.ADD_MESSAGE_TO_MESSAGE_BAG,
@@ -47,7 +45,7 @@ const Layout = ({ children }) => {
     chats();
 
     return (echo) => {
-      echo.unsubscribe("admin-channel");
+      // echo.leave("admin-channel");
     };
   }, [dispatch]);
 

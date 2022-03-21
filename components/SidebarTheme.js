@@ -52,7 +52,6 @@ const SidebarThemeLayout = ({ children }) => {
   const { logout } = useAuth()
 
   useEffect(() => {
-    console.log();
     if (router) {
       setActivePage(router.pathname)
     }

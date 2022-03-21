@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { sendMessage, closeChat } from "services/apiService";
+import { sendMessage } from "services/apiService";
 import { ReplyIcon } from "@heroicons/react/solid";
-// import { ACTION_TYPES } from "pages/_app";
 
 const ChatInput = ({ channel }) => {
   /* initiate state */
